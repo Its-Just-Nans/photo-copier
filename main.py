@@ -6,6 +6,7 @@ import tkinter as tk
 import turtle
 import string
 import tkinter.filedialog
+import tkinter.scrolledtext
 
 global app # tkinter
 import shutil
@@ -24,36 +25,42 @@ def dispMenu():
 def transfer(step):
 	global app
 	app.frame.destroy()
-	app.frame = tk.Frame(app, height = 50, borderwidth = 1,relief="ridge")
-	app.frame.grid(row=1, rowspan=1, column=1)
+	app.frame = tk.Frame(app, height = 50, borderwidth = 1, relief="ridge", bg="white")
+	app.frame.grid(row=0, column=0, sticky="nesw")
+	app.frame.grid_columnconfigure(0, weight=1)
+	app.frame.grid_columnconfigure(1, weight=1)
+	app.frame.grid_columnconfigure(2, weight=1)
+	app.frame.grid_rowconfigure(0, weight=1)
+	app.frame.grid_rowconfigure(1, weight=1)
+	app.frame.grid_rowconfigure(2, weight=1)
 	if step == 0:
 		app.frame.start = tk.Button(app.frame, text="Transférer des photos", font=(info['police'], info['taillePolice']), fg="blue", command=lambda: transfer(1))
-		app.frame.start.grid(row=1, column=1)
+		app.frame.start.grid(row=0, column=0, rowspan="3", columnspan="3", sticky="nesw")
 	elif step == 1:
 		app.frame.text = tk.Label(app.frame, text='Choisir le dossier de destination', font=(info['police'], info['taillePolice']),)
-		app.frame.text.grid(row=1, column=1, columnspan=2)
+		app.frame.text.grid(row=0, column=0, columnspan=3, sticky="nesw")
 		app.frame.buttonAuto = tk.Button(app.frame, text="Choix auto par le logiciels", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:choixDest())
-		app.frame.buttonAuto.grid(row=2,column=1)
+		app.frame.buttonAuto.grid(row=1, column=0, sticky="nesw")
 		app.frame.buttonManu = tk.Button(app.frame, text="Choix Manuel", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:choixFenetre('fileDest', 2))
-		app.frame.buttonManu.grid(row=2,column=2)
-		app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(2))
-		app.frame.buttonNext.grid(row=3,column=2)
+		app.frame.buttonManu.grid(row=1, column=2, sticky="nesw")
 		app.frame.buttonBefore = tk.Button(app.frame, text="Précédent", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(0))
-		app.frame.buttonBefore.grid(row=3, column=1)
+		app.frame.buttonBefore.grid(row=2, column=0, sticky="nesw")
+		app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(2))
+		app.frame.buttonNext.grid(row=2, column=2, sticky="nesw")
 	elif step == 2:
 		try:
 			if info['fileDest'] != '':
 				print(info['fileDest'])
 				app.frame.text = tk.Label(app.frame, text='Choisir le dossier où  sont les photos', font=(info['police'], info['taillePolice']))
-				app.frame.text.grid(row=1, column=1, columnspan=2)
-				app.frame.buttonAuto = tk.Button(app.frame, text="Choix auto par le logiciels", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:dispPhoto())
-				app.frame.buttonAuto.grid(row=2,column=1)
+				app.frame.text.grid(row=0, column=0, columnspan=3, sticky="nesw")
+				app.frame.buttonAuto = tk.Button(app.frame, text="Choix auto par le logiciels", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:choixSrc())
+				app.frame.buttonAuto.grid(row=1 ,column=0, sticky="nesw")
 				app.frame.buttonManu = tk.Button(app.frame, text="Choix Manuel", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:choixFenetre('fileSrc', 3))
-				app.frame.buttonManu.grid(row=2,column=2)
-				app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(3))
-				app.frame.buttonNext.grid(row=3,column=2)
+				app.frame.buttonManu.grid(row=1, column=2, sticky="nesw")
 				app.frame.buttonBefore = tk.Button(app.frame, text="Précédent", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(1))
-				app.frame.buttonBefore.grid(row=3, column=1)
+				app.frame.buttonBefore.grid(row=2, column=0, sticky="nesw")
+				app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(3))
+				app.frame.buttonNext.grid(row=2, column=2, sticky="nesw")
 		except KeyError:
 			transfer(1)
 	elif step == 3:
@@ -61,13 +68,13 @@ def transfer(step):
 			if info['fileSrc'] != '':
 				print(info['fileSrc'])
 				app.frame.text = tk.Label(app.frame, text='Choisir le nom du dossier', font=(info['police'], info['taillePolice']))
-				app.frame.text.grid(row=1, column=1, columnspan=2)
+				app.frame.text.grid(row=0, column=0, columnspan=3, sticky="nesw")
 				app.frame.fichierAppareil = tk.Entry(app.frame, width=20, font=(info['police'], info['taillePolice']))
-				app.frame.fichierAppareil.grid(row=2, column=1, columnspan=2)
-				app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:setNameOfDir())
-				app.frame.buttonNext.grid(row=3, column=2)
+				app.frame.fichierAppareil.grid(row=1 ,column=0, columnspan=3)
 				app.frame.buttonBefore = tk.Button(app.frame, text="Précédent", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(2))
-				app.frame.buttonBefore.grid(row=3, column=1)
+				app.frame.buttonBefore.grid(row=2, column=0, sticky="nesw")
+				app.frame.buttonNext = tk.Button(app.frame, text="Suivant", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:setNameOfDir())
+				app.frame.buttonNext.grid(row=2, column=2, sticky="nesw")
 			else:
 				transfer(2)
 		except KeyError:
@@ -77,18 +84,20 @@ def transfer(step):
 			if info['dirName'] != '':
 				#Ecrire ce qu'il va faire
 				app.frame.text = tk.Label(app.frame, text='Choisir le nom du dossier', font=(info['police'], info['taillePolice']))
-				app.frame.text.grid(row=1, column=1, columnspan=2)
+				app.frame.text.grid(row=0, column=0, columnspan=3, sticky="nesw")
 				app.frame.buttonAuto = tk.Button(app.frame, text="Copier les fichiers", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:copy())
-				app.frame.buttonAuto.grid(row=2, column=1, columnspan=2)
+				app.frame.buttonAuto.grid(row=1 ,column=0, columnspan=3)
 				app.frame.buttonNext = tk.Button(app.frame, text="Recommencer", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(0))
-				app.frame.buttonNext.grid(row=3, column=2)
+				app.frame.buttonNext.grid(row=2, column=0, sticky="nesw")
 				app.frame.buttonBefore = tk.Button(app.frame, text="Précédent", font=(info['police'], info['taillePolice']), fg="blue", command=lambda:transfer(3))
-				app.frame.buttonBefore.grid(row=3, column=1)
+				app.frame.buttonBefore.grid(row=2, column=2, sticky="nesw")
 			else :
 				transfer(3)
 		except KeyError:
 			transfer(3)
-
+	elif step == 5:
+		app.frame.text = tk.Label(app.frame, text='OK', font=(info['police'], info['taillePolice']))
+		app.frame.text.grid(row=0, column=0, columnspan=3, sticky="nesw")
 def choixFenetre(attribut, nextStep):
 	global info
 	app.filename = tkinter.filedialog.askdirectory(initialdir='c:/', title='Choose file')
@@ -98,13 +107,14 @@ def choixFenetre(attribut, nextStep):
 		transfer(nextStep)
 	else:
 		pass
+
 def addToLog(text, sautLigne, render):
-	info['log'] = info['log'] + text
 	if sautLigne:
-		info['log'] = info['log'] + '\n'
+		text = text + '\n'
 	if render:
-		app.frameLog.logtTXT['text'] = info['log']
-		app.update_idletasks()
+		pass
+	app.frameLog.logtTXT.insert(tkinter.END, text)
+	app.update_idletasks()
 
 
 def setNameOfDir():
@@ -126,12 +136,29 @@ def setNameOfDir():
 
 
 def choixDest():
-	#get user name
-	# create file in desktop
-	#info['fileDestination'] = final+'/'
-	pass
+	username = os.getlogin()
+	pathToScript = os.path.realpath(__file__).split('\\')
+
+	info['fileDest'] = pathToScript[0]+'/'
+	if os.path.exists(info['fileDest'] + 'Users/'):
+		info['fileDest'] = info['fileDest'] + 'Users/'
+		if os.path.exists(info['fileDest'] + username + '/'):
+			info['fileDest'] = info['fileDest'] + username + '/'
+			if os.path.exists(info['fileDest'] + 'Pictures' + '/'):
+				info['fileDest'] = info['fileDest'] + 'Pictures' + '/'
+	else:
+		print("error ?")
+	addToLog(info['fileDest'], True, True)
+	transfer(2)
 
 def choixSrc():
+	popUp = tk.Tk()
+	popUp.title('PhotoCopy')
+	popUp.geometry('800x600')
+	popUp.quitter = tk.Button(popUp, text="Quitter", fg="red", command=lambda : popUp.quit())
+	popUp.quitter.grid(row=1, column=0, columnspan=2)
+	popUp.mainloop()
+	popUp.destroy()
 	allLetter = string.ascii_uppercase
 	allLetter = allLetter.replace('C', '')
 	drives = []
@@ -139,8 +166,15 @@ def choixSrc():
 		if os.path.exists(l+':\\'):
 			drives.append(l)
 			print('Il y a un appareil connecté avec ' + l + ':\\')
-	if len(drives) == 1:
+	allLetter = len(drives)
+	if allLetter == 0:
+		print('Pas d\'appareil trouvé')
+	elif allLetter == 1:
 		files = os.listdir(drives[0]+':\\')
+		#found img
+	else :
+		choixFenetre('fileSrc', 3)
+
 
 def copy():
 	listOfFile = os.listdir(info['fileSrc'])
@@ -170,6 +204,7 @@ def copy():
 			addToLog(" [KO]", False, False)
 			addToLog(e.__class__.__name__, True, False)
 		addToLog('', False, True)
+	transfer(5)
 
 def destroyTkinter():
 	app.destroy()
@@ -182,18 +217,27 @@ def getDate(timestamp):
 
 app = tk.Tk()
 app.title('PhotoCopy')
+app.geometry('800x600')
 app.configure(bg='white')
+app.grid_columnconfigure(0, weight=1, minsize="200")
+app.grid_columnconfigure(1, weight=1, minsize="400")
+app.grid_rowconfigure(0, weight=3, minsize="100")
+app.grid_rowconfigure(1, weight=1, minsize="32")
+app.quitter = tk.Button(app, text="Quitter", fg="red", command=lambda :destroyTkinter())
+app.quitter.grid(row=1, column=0, columnspan=2)
 
-app.quit = tk.Button(app, text="Quitter", fg="red", command=lambda :destroyTkinter())
-app.quit.grid(row=2, column=1,columnspan=3)
-app.frameLog = tk.Frame(app, height=50, bg='white', width=200, borderwidth = 1,relief="ridge")
-app.frameLog.grid(row=1, column=2)
+app.frameLog = tk.Frame(app, height=50, bg='blue', width=200, borderwidth = 1, relief="ridge")
+app.frameLog.grid(row=0, column=1, sticky="nesw")
+app.frameLog.grid_columnconfigure(0, weight=1)
+app.frameLog.grid_rowconfigure(0, weight=2)
+app.frameLog.grid_rowconfigure(1, weight=3)
 app.frameLog.log = tk.Label(app.frameLog, text='Log', font=(info['police'], info['taillePolice']), bg='white')
-app.frameLog.log.grid(row=1, column=1)
-app.frameLog.logtTXT = tk.Label(app.frameLog, text=info['log'], font=(info['police'], 10), bg='white', justify='left')
-app.frameLog.logtTXT.grid(row=2, column=1)
-app.frame = tk.Frame(app, height = 50, borderwidth = 1,relief="ridge")
-app.frame.grid(row=1, column=1)
+app.frameLog.log.grid(row=0, column=0)
+app.frameLog.logtTXT = tkinter.scrolledtext.ScrolledText(app.frameLog, font=(info['police'], 10), bg='white')
+app.frameLog.logtTXT.grid(row=1, column=0, sticky="nesw")
+
+app.frame = tk.Frame(app, height=50, borderwidth=1, relief="ridge")
+app.frame.grid(row=0, column=0, sticky="nesw")
 transfer(0)
 app.mainloop()
 		
