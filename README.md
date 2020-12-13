@@ -20,11 +20,13 @@ PATH_TO_PIP install pyinstaller
 ```
 Then you need to execute `pyinstaller` :
 
+You need to be in the folder of the program
+
 If you have `pyinstaller` in your path
 ```
 pyinstaller .\main.spec
 ```
 or
 ```
-py -m PyInstaller .\main.spec in the folder
+py -m PyInstaller .\main.spec
 ```
