@@ -396,7 +396,15 @@ app.schema.grid_columnconfigure(2, weight=1)
 app.schema.label = tk.Label(app.schema, text='Schéma', font=(info['police'], info['taillePolice']), bg='white')
 app.schema.label.grid(row=0, column=0, sticky="nesw", columnspan="3")
 
-img = Image.open('.\\folder-ico.jpg')
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+img = Image.open(resource_path("folder-ico.jpg"))
 zoom = 0.60
 pixels_x, pixels_y = tuple([int(zoom * x)  for x in img.size])
 img = img.resize((pixels_x, pixels_y), Image.ANTIALIAS)
@@ -405,7 +413,8 @@ app.schema.img1 = tk.Label(app.schema , image=img)
 app.schema.img1.photo = img
 app.schema.img1.grid(row=1, column=0)
 
-img = Image.open('.\\arrow.jpg')
+
+img = Image.open(resource_path('arrow.jpg'))
 zoom = 0.5
 pixels_x, pixels_y = tuple([int(zoom * x)  for x in img.size])
 img = img.resize((pixels_x, pixels_y), Image.ANTIALIAS)
@@ -414,7 +423,7 @@ app.schema.img2 = tk.Label(app.schema , image=img)
 app.schema.img2.photo = img
 app.schema.img2.grid(row=1, column=1)
 
-img = Image.open('.\\folder-ico.jpg')
+img = Image.open(resource_path("folder-ico.jpg"))
 zoom = 0.60
 pixels_x, pixels_y = tuple([int(zoom * x)  for x in img.size])
 img = img.resize((pixels_x, pixels_y), Image.ANTIALIAS)
