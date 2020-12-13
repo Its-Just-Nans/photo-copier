@@ -4,6 +4,16 @@
 Transfer your pictures easily !
 Work only for __`Windows`__
 
+You need the `PIL` module :
+
+If you have `pip` in your path :
+```
+pip install pillow
+```
+or
+```
+PATH_TO_PIP install pillow
+```
 
 ### Create an executable
 With the executable, the start of the program is slower :(
