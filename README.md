@@ -6,16 +6,15 @@ Work only for __`Windows`__
 
 You need the `PIL` module :
 
-If you have `pip` in your path :
-
 ```sh
-pip install pillow
+python -m pip install pillow
 ```
 
-or
+## Usage with Pypi
 
 ```sh
-PATH_TO_PIP install pillow
+python -m pip install -U photo-copier
+python -m photo_copier
 ```
 
 ## Create an executable
@@ -27,13 +26,7 @@ If you want to create an executable, you need to have `PyInstaller` installed
 If you have `pip` in your path :
 
 ```sh
-pip install pyinstaller
-```
-
-or
-
-```sh
-PATH_TO_PIP install pyinstaller
+python -m pip install pyinstaller
 ```
 
 Then you need to execute `pyinstaller` :

@@ -6,13 +6,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "photo-copier"
-version = "1.0.2"
+version = "1.0.5"
 description = "Select an copy your photos"
 readme = "README.md"
 authors = [{ name = "n4n5", email = "its.just.n4n5@gmail.com" }]
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
@@ -22,3 +22,6 @@ requires-python = ">=3.6"
 [project.urls]
 Homepage = "https://github.com/Its-Just-Nans/photo-copier"
 "Bug Tracker" = "https://github.com/Its-Just-Nans/photo-copier/issues"
+
+[tool.setuptools.package-data]
+photo_copier = ["*.jpg"]

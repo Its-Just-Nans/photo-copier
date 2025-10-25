@@ -1,2 +1,3 @@
 photo_copier.egg-info/
 dist/
+__pycache__/
