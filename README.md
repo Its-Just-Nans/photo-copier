@@ -37,10 +37,6 @@ If you have `pyinstaller` in your path
 
 ```sh
 pyinstaller .\main.spec
-```
-
-or
-
-```sh
+# or
 py -m PyInstaller .\main.spec
 ```
